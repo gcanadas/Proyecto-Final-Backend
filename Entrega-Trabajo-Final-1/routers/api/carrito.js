@@ -25,17 +25,25 @@ router.post('/', async (req, res, next) => {
 
 router.delete("/:id", async (req, res, next) => {
   try {
-        await carrito.delCart(req.params.id);
-        res.status(STATUS_CODE.OK).json(`El carrito con el id:${req.params.id} se elimino correctamente`);
+      const delStatus = await carrito.delCart(req.params.id);
+      if(delStatus){
+      res.status(STATUS_CODE.OK).json(`El carrito con el id:${req.params.id} se elimino correctamente`);
+      return;
+      }
+      res.status(STATUS_CODE.NOT_FOUND).json(`El carrito con el id:${req.params.id} no se encontro`);
   } catch (err) {
-        next(err);
+      next(err);
   }
 });
 
 router.post('/:id/productos', async (req, res, next) => { 
   try {
-      await carrito.newProduct(req.params.id, req.body.id);
-      res.status(STATUS_CODE.CREATED).json(`Se agregaron productos al carrito con el id:${req.params.id}`);
+      const productStatus = await carrito.newProduct(req.params.id, req.body.id);
+      if(productStatus) {
+            res.status(STATUS_CODE.CREATED).json(`Se agregaron productos al carrito con el id:${req.params.id}`);
+            return;
+      }
+      res.status(STATUS_CODE.NOT_FOUND).json(`No se pudieron agregar los productos al carrito`);
 } catch (err) {
       next(err)
 }
@@ -52,8 +60,12 @@ router.get('/:id/productos', async (req, res, next) => {
 
 router.delete('/:id/productos/:id_prod', async (req, res, next) => { 
   try {
-      await carrito.delProduct(req.params.id, req.params.id_prod);
-      res.status(STATUS_CODE.OK).json(`Se elimino el productos con id:${req.params.id_prod} del carrito con el id:${req.params.id}`);
+      const delStatus = await carrito.delProduct(req.params.id, req.params.id_prod);
+      if(delStatus){
+            res.status(STATUS_CODE.OK).json(`Se elimino el productos con id:${req.params.id_prod} del carrito con el id:${req.params.id}`);
+            return;
+      }
+      res.status(STATUS_CODE.NOT_FOUND).json(`El producto con id:${req.params.id_prod} no se pudo eliminar del carrito con el id:${req.params.id}`);
 } catch (err) {
       next(err)
 }

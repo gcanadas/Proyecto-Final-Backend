@@ -3,9 +3,6 @@ const encoding = 'utf-8';
 const { v4: uuidv4 } = require("uuid");
 const prodController = require("./productsController");
 
-// const FileSystemController = require("./FileSystemController"),
-//       fsc = new FileSystemController();
-
 
 const productos = new prodController("./db/productos.json");
 
@@ -60,10 +57,10 @@ class carritoController {
             if(carts.some((cart) => cart.id === id)){
                 const cartFilter = carts.filter((cart) => cart.id !== id);
                 await this.writeArchive(this.archiveName, cartFilter);
-                return
+                return true
             }
             console.log(`No se encontro ningun producto con el id:${id}`);
-            
+            return false
         } catch (err) {
                 console.log(err);
         }
@@ -85,6 +82,8 @@ class carritoController {
 
                 await this.writeArchive(this.archiveName, carts);
                 console.log(`Productos agregado al carrito ${cartId} correctamente`)
+
+                return true
             } catch (error) {
                     console.log(error.message);
             }
@@ -98,6 +97,27 @@ class carritoController {
                     productos.push(producto)
                 });
                 return productos;
+            } catch(err) {
+                console.log(err);
+            }
+        }
+
+        async delProduct(cartId, productId) {
+            try {
+                let cart = await this.getById(cartId);
+                let carts = await this.getAll();
+
+                if(cart.productos.some((product) => product.id === productId)){
+                    const productFilter = cart.productos.filter((product) => product.id !== productId);
+                    const cartFilter = carts.filter((cart) => cart.id !== cartId);
+                    cart = {...cart, productos: productFilter};
+                    cartFilter.push(cart);
+
+                    await this.writeArchive(this.archiveName, cartFilter);
+                    return true;
+                }
+                console.log(`No se encontro ningun producto con el id:${productId}`);
+                return false;
             } catch(err) {
                 console.log(err);
             }

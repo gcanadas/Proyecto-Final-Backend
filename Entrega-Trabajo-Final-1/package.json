@@ -4,6 +4,7 @@
   "description": "Primera Entrega Proyecto Final",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "dev": "nodemon --exec node -r dotenv/config ./index.js"
   },
   "keywords": [],
