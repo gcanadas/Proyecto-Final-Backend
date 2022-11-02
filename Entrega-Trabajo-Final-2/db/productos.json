@@ -1,0 +1,42 @@
+[
+  {
+    "id": "a2b04eb6-7dda-4572-8658-713d1199dbe6",
+    "timestamp": "12/10/2022 19:58:53",
+    "title": "PlayStation 3",
+    "description": "PlayStation 3 te transporta a un mundo de diversión sin límites. Embárcate en innumerables aventuras con reveladores títulos en alta definición; disfruta de sorprendentes películas en Blu-ray Disc, acceso gratuito a PlayStation Network y mucho más. El juego es solo el principio…",
+    "codigo": 15687,
+    "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Sony-PlayStation-3-2001A-wController-L.jpg",
+    "price": 60000,
+    "stock": 10
+  },
+  {
+    "id": "6d5ec13b-59e1-471d-ab4e-7509f0cdca51",
+    "timestamp": "12/10/2022 19:58:53",
+    "title": "PlayStation 4",
+    "description": "PlayStation 4 es la cuarta videoconsola de la familia PlayStation de Sony Computer Entertainment. Es la sucesora de la Playstation 3 y compite en esta generación con la Xbox One de Microsoft y con la Wii U de Nintendo. Las nuevas aplicaciones que planea Sony es un servicio de aplicación PlayStation App, permitiendo a los que tengan un PS4 convertir los teléfonos inteligentes y las tabletas en una segunda pantalla para mejorar la jugabilidad.",
+    "codigo": 25648,
+    "thumbnail": "https://th.bing.com/th/id/OIP.HXa-kFjqTztbJMpplOafPwHaHa?pid=ImgDet&rs=1",
+    "price": 130000,
+    "stock": 15
+  },
+  {
+    "id": "59bf4827-b89e-4aae-ac8f-2c0ac413b709",
+    "timestamp": "12/10/2022 19:58:53",
+    "title": "PlayStation 5",
+    "description": "PlayStation 5: Jugar no tiene límites. Experimenta cargas superrápidas gracias a una unidad de estado sólido (SSD) de alta velocidad, una inmersión más profunda con retroalimentación háptica, gatillos adaptables y audio 3D, además de una nueva generación de increíbles juegos de PlayStation",
+    "codigo": 35698,
+    "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/PlayStation_5_and_DualSense_with_transparent_background.png/1200px-PlayStation_5_and_DualSense_with_transparent_background.png",
+    "price": 250000,
+    "stock": 20
+  },
+  {
+    "id": "d7743668-2dd5-4b96-9975-626beb34e89c",
+    "timestamp": "12/10/2022 20:42:54",
+    "title": "Xbox 360",
+    "description": "La Xbox 360 (conocida también como 360) es la segunda videoconsola de sobremesa producida por Microsoft, y fue desarrollada en colaboración con IBM y ATI. Fue lanzada en Norteamérica, Japón, Europa y Australia entre 2005 y 2006. Su servicio Xbox Live permite a los jugadores competir vía online y descargar contenidos como juegos arcade, demos, tráilers, programas de televisión y películas.",
+    "codigo": 44562,
+    "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/0/03/Xbox-360-Consoles-Infobox.png",
+    "price": 49000,
+    "stock": 8
+  }
+]

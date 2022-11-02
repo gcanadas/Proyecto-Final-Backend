@@ -1,0 +1,23 @@
+[
+  {
+    "id": "dc87149d-4a1c-47eb-abe3-b876ba11c58e",
+    "timestamp": "12/10/2022 23:26:05",
+    "productos": []
+  },
+  {
+    "id": "89fe272d-d0b2-4ff4-8d38-1c4b7d4bf0a8",
+    "timestamp": "12/10/2022 22:12:43",
+    "productos": [
+      {
+        "id": "6d5ec13b-59e1-471d-ab4e-7509f0cdca51",
+        "timestamp": "12/10/2022 19:58:53",
+        "title": "PlayStation 4",
+        "description": "PlayStation 4 es la cuarta videoconsola de la familia PlayStation de Sony Computer Entertainment. Es la sucesora de la Playstation 3 y compite en esta generación con la Xbox One de Microsoft y con la Wii U de Nintendo. Las nuevas aplicaciones que planea Sony es un servicio de aplicación PlayStation App, permitiendo a los que tengan un PS4 convertir los teléfonos inteligentes y las tabletas en una segunda pantalla para mejorar la jugabilidad.",
+        "codigo": 25648,
+        "thumbnail": "https://th.bing.com/th/id/OIP.HXa-kFjqTztbJMpplOafPwHaHa?pid=ImgDet&rs=1",
+        "price": 130000,
+        "stock": 15
+      }
+    ]
+  }
+]
