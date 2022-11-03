@@ -17,7 +17,7 @@ switch (process.env.TIPO_PERSISTENCIA) {
         productosDao = new ProductosDaoMongoDB();
         carritosDao = new CarritosDaoMongoDB();
         await productosDao.connect();
-        await carritosDao.connect();
+        
         break;
     case 'firebase':
         const { default: ProductosDaoFirebase } = await import('./productos/ProductosDaoFirebase.js');

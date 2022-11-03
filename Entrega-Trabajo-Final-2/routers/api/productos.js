@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import prodController from "../../controllers/productsController.js";
+import { productosDao } from '../../daos/index.js'
 
-const productos = new prodController("./db/productos.json");
+const productos = productosDao
 
 const router = Router();
 
@@ -33,7 +33,7 @@ router.get('/:id?', async(req, res, next) => {
 router.post('/', async(req, res, next) => {
   try{
     if(administrador){
-      let data = await productos.save(req.body);
+      let data = await productos.newProduct(req.body);
       res.status(STATUS_CODE.CREATED).json(data);
       return
     }

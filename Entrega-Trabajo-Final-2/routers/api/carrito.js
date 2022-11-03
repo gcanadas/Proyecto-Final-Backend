@@ -1,9 +1,7 @@
 import { Router } from 'express';
-import prodController from '../../controllers/productsController.js';
-import cartController from '../../controllers/carritoController.js';
+import { carritosDao } from '../../daos/index.js'
 
-const productos = new prodController('./db/productos.json');
-const carrito = new cartController('./db/carrito.json');
+const carrito = carritosDao;
 
 const router = Router();
 
@@ -25,7 +23,7 @@ router.post('/', async (req, res, next) => {
 
 router.delete("/:id", async (req, res, next) => {
   try {
-      const delStatus = await carrito.delCart(req.params.id);
+      const delStatus = await carrito.deleteById(req.params.id);
       if(delStatus){
       res.status(STATUS_CODE.OK).json(`El carrito con el id:${req.params.id} se elimino correctamente`);
       return;

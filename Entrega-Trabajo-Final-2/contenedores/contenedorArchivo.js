@@ -64,6 +64,7 @@ class ContenedorArchivo {
         try {
             await fs.unlink(this.archiveName);
             console.log('Se borro el archivo con los productos');
+            return
         } catch(err) {
             console.log('Error en el metodo deleteAll de ContenedorArchivo', err.message);
         }

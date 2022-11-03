@@ -1,6 +1,6 @@
 class ContenedorMemoria {
-    constructor(archiveName) {
-        this.archiveName = archiveName;
+    constructor() {
+        this.archiveName = [];
     }
 
     /*Metodo para obtener todos los elementos del archivo*/
@@ -55,6 +55,7 @@ class ContenedorMemoria {
     async deleteAll() {
         try {
             this.archiveName = [];
+            return
         } catch(err) {
             console.log('Error en el metodo deleteAll de ContenedorMemoria', err.message);
         }
