@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import config from '../config.js';
 
-await mongoose.connect(config.mongoDB.URI);
+//await mongoose.connect(config.mongoDB.URI);
 
 class ContenedorMongoDb {
     constructor(model) {
@@ -31,7 +31,7 @@ class ContenedorMongoDb {
         try {
             const data = await this.collection.find({ _id: id });
             if (data.length === 0) {
-                console.log(`No se encontraron elementos con el id: ${id}`);
+                console.log(`No se encontraron elementos con el id: ${id} en la base de datos`);
                 return null;
             }
             return data[0];

@@ -1,5 +1,5 @@
 import ContenedorArchivo from '../../contenedores/ContenedorArchivo.js';
-import ProductosDaoArchivo from '../productos/ProductosDaoArchivos.js';
+import ProductosDaoArchivo from '../productos/ProductosDaoArchivo.js';
 import { v4 as uuidv4 } from 'uuid';
 const productosRef = new ProductosDaoArchivo();
 

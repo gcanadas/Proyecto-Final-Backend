@@ -65,10 +65,13 @@ router.put('/:id', async(req, res, next) => {
 router.delete('/:id', async(req, res, next) => {
   try{
     if(administrador){
-      await productos.deleteById(req.params.id);
-      res.status(STATUS_CODE.OK).json(`Producto con id:${req.params.id} eliminado correctamente`);
-      return
-    }
+      const result = await productos.deleteById(req.params.id);
+      if(result) {
+        res.status(STATUS_CODE.OK).json(`Producto con id:${req.params.id} eliminado correctamente`);
+        return;
+      }
+      res.status(STATUS_CODE.NOT_FOUND).json(`Producto con id:${req.params.id} no encontrado`);
+      }
     res.status(STATUS_CODE.UNAUTHORIZED).json({
       error: -1,
       descripcion: `ruta ${req.originalUrl} método ${req.method} no autorizada`

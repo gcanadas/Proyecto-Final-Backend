@@ -21,7 +21,7 @@ class ContenedorArchivo {
             const data = await this.getAll();
             const dataFilter = data.filter((product) => product.id === id);
             if (dataFilter.length === 0) {
-                console.log(`No se encontraron elementos con el id: ${id}`);
+                console.log(`No se encontraron elementos con el id: ${id} en el archivo`);
                 return null;
             }
             return dataFilter[0];
@@ -50,10 +50,10 @@ class ContenedorArchivo {
             if(data.some((product) => product.id === id)){
                 const dataFilter = data.filter((product) => product.id !== id);
                 await fs.writeFile(this.archiveName, JSON.stringify(dataFilter, null, 2), encoding);  
-                return
+                return true
             }
             console.log('No se encontro ningun elemento con ese id');
-            return
+            return false
         } catch(err) {
             console.log('Error en el metodo deleteById de ContenedorArchivo', err.message);
         }
