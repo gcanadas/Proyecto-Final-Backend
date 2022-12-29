@@ -17,7 +17,7 @@ class ContenedorMemoria {
         try {
             const data = this.archiveName.filter((element) => element.id === id);
             if (data.length === 0) {
-                console.log(`No se encontraron elementos con el id: ${id}`);
+                console.log(`No se encontraron elementos con el id: ${id} en la memoria`);
                 return null;
             }
             return data[0];
