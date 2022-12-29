@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { productosDao } from '../../daos/index.js'
+import logger from '../../log/logger.js';
 
 const productos = productosDao
 
@@ -26,7 +27,7 @@ router.get('/:id?', async(req, res, next) => {
     res.status(STATUS_CODE.CREATED).json(data)
 
   } catch (error) {
-    next(error)
+    logger.error(`Ruta ${req.originalUrl} - Metodo: ${req.method}`);
   }
 });
 
@@ -42,7 +43,7 @@ router.post('/', async(req, res, next) => {
       descripcion: `ruta ${req.originalUrl} método ${req.method} no autorizada`
     })
   } catch (error) {
-    next(error)
+    logger.error(`Ruta ${req.originalUrl} - Metodo: ${req.method}`);
   }
 });
 
@@ -58,23 +59,26 @@ router.put('/:id', async(req, res, next) => {
       descripcion: `ruta ${req.originalUrl} método ${req.method} no autorizada`
     })
   } catch (error) {
-    next(error)
+    logger.error(`Ruta ${req.originalUrl} - Metodo: ${req.method}`);
   }
 });
 
 router.delete('/:id', async(req, res, next) => {
   try{
     if(administrador){
-      await productos.deleteById(req.params.id);
-      res.status(STATUS_CODE.OK).json(`Producto con id:${req.params.id} eliminado correctamente`);
-      return
+      const result = await productos.deleteById(req.params.id);
+      if(result) {
+        res.status(STATUS_CODE.OK).json(`Producto con id:${req.params.id} eliminado correctamente`);
+        return;
+      }
+      res.status(STATUS_CODE.NOT_FOUND).json(`Producto con id:${req.params.id} no encontrado`);
     }
     res.status(STATUS_CODE.UNAUTHORIZED).json({
       error: -1,
       descripcion: `ruta ${req.originalUrl} método ${req.method} no autorizada`
     })
   } catch (error) {
-    next(error)
+    logger.error(`Ruta ${req.originalUrl} - Metodo: ${req.method}`);
   }
 });
 

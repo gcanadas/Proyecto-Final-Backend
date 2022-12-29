@@ -1,4 +1,5 @@
 import ContenedorFirebase from '../../contenedores/contenedorFirebase.js';
+import logger from '../../log/logger.js';
 
 class ProductosDaoFirebase extends ContenedorFirebase {
     constructor() {
@@ -10,7 +11,7 @@ class ProductosDaoFirebase extends ContenedorFirebase {
             product['timestamp'] = new Date().toLocaleString();
             await this.save(product);
         } catch (error) {
-            console.log('Error en el metodo newProduct de ProductosDaoFirebase', error.message);
+            logger.error('Error en el metodo newProduct de ProductosDaoFirebase', error.message);
         }
     }
 }

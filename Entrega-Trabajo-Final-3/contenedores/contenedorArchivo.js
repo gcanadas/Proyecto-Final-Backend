@@ -1,4 +1,5 @@
 import { promises as fs } from "fs";
+import logger from "../log/logger";
 const encoding = 'utf-8';
 
 class ContenedorArchivo {
@@ -12,7 +13,7 @@ class ContenedorArchivo {
             const data = await fs.readFile(this.archiveName, encoding);
             return JSON.parse(data);
         } catch(err) {
-            console.log('Error en el metodo getAll de ContenedorArchivo', err.message);
+            logger.error('Error en el metodo getAll de ContenedorArchivo', err.message)
         }
     }
     /*Metodo para obtener un elemento del archivo por id*/
@@ -21,12 +22,12 @@ class ContenedorArchivo {
             const data = await this.getAll();
             const dataFilter = data.filter((product) => product.id === id);
             if (dataFilter.length === 0) {
-                console.log(`No se encontraron elementos con el id: ${id}`);
+                logger.warn(`No se encontraron elementos con el id: ${id} en el archivo`)
                 return null;
             }
             return dataFilter[0];
         } catch(err) {
-            console.log('Error en el metodo getById de ContenedorArchivo', err.message);
+            logger.error('Error en el metodo getById de ContenedorArchivo', err.message)
         }
     }
 
@@ -35,11 +36,11 @@ class ContenedorArchivo {
         try {
             const data = await this.getAll();
             data.push(element);
-            await fs.writeFile(this.archiveName, JSON.stringify(data, null, 2), encoding);    
-            console.log(`Se agrego un nuevo elemento al archivo ${this.archiveName}`);
+            await fs.writeFile(this.archiveName, JSON.stringify(data, null, 2), encoding);
+            logger.info(`Se agrego un nuevo elemento al archivo ${this.archiveName}`);
             return element.id
         } catch (err) {
-            console.log('Error en el metodo save de ContenedorArchivo', err.message);
+            logger.error('Error en el metodo save de ContenedorArchivo', err.message)
         }
     }
 
@@ -50,12 +51,12 @@ class ContenedorArchivo {
             if(data.some((product) => product.id === id)){
                 const dataFilter = data.filter((product) => product.id !== id);
                 await fs.writeFile(this.archiveName, JSON.stringify(dataFilter, null, 2), encoding);  
-                return
+                return true
             }
-            console.log('No se encontro ningun elemento con ese id');
-            return
+            logger.warn('No se encontro ningun elemento con ese id');
+            return false
         } catch(err) {
-            console.log('Error en el metodo deleteById de ContenedorArchivo', err.message);
+            logger.error('Error en el metodo deleteById de ContenedorArchivo', err.message);
         }
     }
 
@@ -63,10 +64,10 @@ class ContenedorArchivo {
     async deleteAll() {
         try {
             await fs.unlink(this.archiveName);
-            console.log('Se borro el archivo con los productos');
+            logger.info('Se borro el archivo con los productos');
             return
         } catch(err) {
-            console.log('Error en el metodo deleteAll de ContenedorArchivo', err.message);
+            logger.error('Error en el metodo deleteAll de ContenedorArchivo', err.message);
         }
     }
 
@@ -76,7 +77,7 @@ class ContenedorArchivo {
             const data = await this.getAll();
             const dataFilter = data.filter((product) => product.id === id);
             if (dataFilter.length === 0) {
-                console.log(`No se encontraron elementos con el id: ${id}`);
+                logger.warn(`No se encontraron elementos con el id: ${id}`);
                 return null;
             }
             let productos = data.filter((product) => product.id !== id);
@@ -84,7 +85,7 @@ class ContenedorArchivo {
             await fs.writeFile(this.archiveName, JSON.stringify(productos, null, 2), encoding);           
             return element
         } catch(err) {
-            console.log('Error en el metodo updateByID de ContenedorArchivo', err.message);
+            logger.error('Error en el metodo updateByID de ContenedorArchivo', err.message);
         }
     }
 }

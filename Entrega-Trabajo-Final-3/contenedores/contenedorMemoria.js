@@ -1,3 +1,5 @@
+import logger from "../log/logger";
+
 class ContenedorMemoria {
     constructor() {
         this.archiveName = [];
@@ -9,7 +11,7 @@ class ContenedorMemoria {
             const data = [...this.archiveName];
             return data;
         } catch(err) {
-            console.log('Error en el metodo getAll de ContenedorMemoria', err.message);
+            logger.error('Error en el metodo getAll de ContenedorMemoria', err.message);
         }
     }
     /*Metodo para obtener un elemento del archivo por id*/
@@ -17,12 +19,12 @@ class ContenedorMemoria {
         try {
             const data = this.archiveName.filter((element) => element.id === id);
             if (data.length === 0) {
-                console.log(`No se encontraron elementos con el id: ${id}`);
+                logger.warn(`No se encontraron elementos con el id: ${id} en la memoria`);
                 return null;
             }
             return data[0];
         } catch(err) {
-            console.log('Error en el metodo getById de ContenedorMemoria', err.message);
+            logger.error('Error en el metodo getById de ContenedorMemoria', err.message);
         }
     }
 
@@ -32,7 +34,7 @@ class ContenedorMemoria {
             this.archiveName.push(element);
             return element.id
         } catch (err) {
-            console.log('Error en el metodo save de ContenedorMemoria', err.message);
+            logger.error('Error en el metodo save de ContenedorMemoria', err.message);
         }
     }
 
@@ -44,10 +46,10 @@ class ContenedorMemoria {
                 this.archiveName = dataFilter;
                 return
             }
-            console.log('No se encontro ningun elemento con ese id');
+            logger.warn('No se encontro ningun elemento con ese id');
             return
         } catch(err) {
-            console.log('Error en el metodo deleteById de ContenedorMemoria', err.message);
+            logger.error('Error en el metodo deleteById de ContenedorMemoria', err.message);
         }
     }
 
@@ -57,16 +59,16 @@ class ContenedorMemoria {
             this.archiveName = [];
             return
         } catch(err) {
-            console.log('Error en el metodo deleteAll de ContenedorMemoria', err.message);
+            logger.error('Error en el metodo deleteAll de ContenedorMemoria', err.message);
         }
     }
 
-    /*Metodo para actualizar un elemento en el archivo*/
+    /*Metodo para actualizar un elemento en la memoria*/
     async updateById(id, element){
         try {
             const dataFilter = this.archiveName.filter((product) => product.id === id);
             if (dataFilter.length === 0) {
-                console.log(`No se encontraron elementos con el id: ${id}`);
+                logger.warn(`No se encontraron elementos con el id: ${id} en la memoria`);
                 return null;
             }
             let elementos = this.archiveName.filter((product) => product.id !== id);
@@ -74,7 +76,7 @@ class ContenedorMemoria {
             this.archiveName = elementos;           
             return element
         } catch(err) {
-            console.log('Error en el metodo updateByID de ContenedorMemoria', err.message);
+            logger.error('Error en el metodo updateByID de ContenedorMemoria', err.message);
         }
     }
 }

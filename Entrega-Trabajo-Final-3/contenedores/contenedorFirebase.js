@@ -1,6 +1,8 @@
 import FirebaseAdmin from 'firebase-admin';
 import { readFile } from 'fs/promises'
 import { v4 as uuidv4 } from 'uuid';
+import logger from "../log/logger";
+
 
 const cert = JSON.parse(
     await readFile(
@@ -13,9 +15,9 @@ const connect = async () => {
         FirebaseAdmin.initializeApp({
             credential: FirebaseAdmin.credential.cert(cert),
         });
-        console.log('Conectados a Firebase');
+        logger.info('Conectados a Firebase');
     } catch (error) {
-        console.log('Error en el metodo connect de contenedorFirebase', error.message);
+        logger.error('Error en el metodo connect de contenedorFirebase', error.message);
     }
 };
 await connect();
@@ -35,7 +37,7 @@ class ContenedorFirebase {
             const response = docs.map((doc) => ({ _id: doc.id, ...doc.data() }));
             return response;
         } catch (error) {
-            console.log('Error en el metodo getAll de contenedorFirebase', error.message);
+            logger.error('Error en el metodo getAll de contenedorFirebase', error.message);
         }
     }
     /*Metodo para obtener un elemento de la base de datos por id*/
@@ -48,11 +50,11 @@ class ContenedorFirebase {
                 response['_id'] = id;
                 return response;
             } else {
-                console.log('No se encontro el ID');
+                logger.warn('No se encontro el ID');
                 return
             }
         } catch (error) {
-            console.log('Error en el metodo getById de contenedorFirebase', error.message);
+            logger.error('Error en el metodo getById de contenedorFirebase', error.message);
         }
     }
     /*Metodo para guardar un elementos en Firebase*/
@@ -63,7 +65,7 @@ class ContenedorFirebase {
             await doc.create(element);
             return element.id;
         } catch (error) {
-            console.log('Error en el metodo save de contenedorFirebase', error.message);
+            logger.error('Error en el metodo save de contenedorFirebase', error.message);
         }
     }
   
@@ -73,7 +75,7 @@ class ContenedorFirebase {
             const doc = this.query.doc(id);
             await doc.delete();
         } catch (error) {
-            console.log('Error en el metodo deleteById de contenedorFirebase', error.message);
+            logger.error('Error en el metodo deleteById de contenedorFirebase', error.message);
         }
     }
     /*Metodo para actualizar un elemento en firebase*/
@@ -83,7 +85,7 @@ class ContenedorFirebase {
             await doc.update(element);
             return element._id;
         } catch (error) {
-            console.log('Error en el metodo updateById de contenedorFirebase', error.message);
+            logger.error('Error en el metodo updateById de contenedorFirebase', error.message);
         }
     }
 }

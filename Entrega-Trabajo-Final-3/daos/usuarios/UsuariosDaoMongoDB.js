@@ -1,5 +1,6 @@
 import UserModel from '../../models/usuarios.js';
 import ContenedorMongoDb from '../../contenedores/contenedorMongoDb.js';
+import logger from '../../log/logger.js';
 
 class UsuariosDaoMongoDb extends ContenedorMongoDb {
     constructor() {
@@ -10,7 +11,7 @@ class UsuariosDaoMongoDb extends ContenedorMongoDb {
         try {
             return await this.collection.find({ email: `${email}` })
         } catch (error) {
-            console.log('Error en el metodo newProduct de UsuariosDaoMongoDb', error.message);
+            logger.error('Error en el metodo newProduct de UsuariosDaoMongoDb', error.message);
         }
     }
 }

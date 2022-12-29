@@ -1,6 +1,7 @@
 import ContenedorMongoDb from '../../contenedores/contenedorMongoDb.js';
 import ProductosDaoMongoDb from './../productos/ProductosDaoMongoDb.js';
 import CartModel from '../../models/carritos.js';
+import logger from '../../log/logger.js';
 
 const productosRef = new ProductosDaoMongoDb();
 class CarritosDaosMongoDb extends ContenedorMongoDb {
@@ -8,15 +9,16 @@ class CarritosDaosMongoDb extends ContenedorMongoDb {
         super(CartModel);
     }
     /*Metodo para crear un nuevo carrito*/
-    async newCart() {
+    async newCart(email) {
         try {
-                let cart = {};
-                cart['timestamp'] = new Date().toLocaleString();
-                cart['productos'] = [];
-                const result = this.save(cart);
-                return result['_id'];
+            let cart = {};
+            cart['timestamp'] = new Date().toLocaleString();
+            cart['productos'] = [];
+            cart['email'] = email;
+            const result = this.save(cart);
+            return result['_id'];
         } catch (error) {
-                console.log('Error en el metodo newCart de CarritosDaoMongoDb', error.message);
+            logger.error('Error en el metodo newCart de CarritosDaoMongoDb', error.message);
         }
     }
     /*Metodo para agregar producto en el carrito*/
@@ -31,7 +33,7 @@ class CarritosDaosMongoDb extends ContenedorMongoDb {
             await this.updateById(cartId, cart);
             return true   
         } catch (error) {
-            console.log('Error en el metodo newProduct de CarritosDaoMongoDb', error.message);
+            logger.error('Error en el metodo newProduct de CarritosDaoMongoDb', error.message);
         }
     }
     /*Metodo para obtener los productos del carrito*/
@@ -44,7 +46,7 @@ class CarritosDaosMongoDb extends ContenedorMongoDb {
             });
             return productos;
         } catch (error) {
-            console.log('Error en el metodo getProduct de CarritosDaoMongoDb', error.message);
+            logger.error('Error en el metodo getProduct de CarritosDaoMongoDb', error.message);
         }
     }
     /*Metodo para eliminar los productos del carrito*/
@@ -58,10 +60,10 @@ class CarritosDaosMongoDb extends ContenedorMongoDb {
                 await this.updateById(cartId, cart);
                 return true;
             }
-            console.log(`No se encontro ningun producto con el id:${productId}`);
+            logger.warn(`No se encontro ningun producto con el id:${productId}`);
             return false;
         } catch (error) {
-            console.log('Error en el metodo delProduct de CarritosDaoMongoDb', error.message);
+            logger.error('Error en el metodo delProduct de CarritosDaoMongoDb', error.message);
         }
     }
 }

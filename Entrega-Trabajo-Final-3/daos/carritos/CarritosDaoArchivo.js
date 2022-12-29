@@ -1,6 +1,7 @@
 import ContenedorArchivo from '../../contenedores/ContenedorArchivo.js';
-import ProductosDaoArchivo from '../productos/ProductosDaoArchivos.js';
+import ProductosDaoArchivo from '../productos/ProductosDaoArchivo.js';
 import { v4 as uuidv4 } from 'uuid';
+import logger from '../../log/logger.js';
 const productosRef = new ProductosDaoArchivo();
 
 class CarritosDaoArchivo extends ContenedorArchivo {
@@ -17,7 +18,7 @@ class CarritosDaoArchivo extends ContenedorArchivo {
             this.save(cart);
             return cart['id'];
         } catch (err) {
-            console.log('Error en el metodo newCart de CarritosDaoArchivo', err.message);
+            logger.error('Error en el metodo newCart de CarritosDaoArchivo', err.message);
         }
     }
 
@@ -33,7 +34,7 @@ class CarritosDaoArchivo extends ContenedorArchivo {
             await this.updateById(cartId, cart);
             return true               
         } catch (err) {
-            console.log('Error en el metodo newProduct de CarritosDaoArchivo', err.message)
+            logger.error('Error en el metodo newProduct de CarritosDaoArchivo', err.message)
         }
     }
     /*Metodo para obtener los productos del carrito*/
@@ -45,8 +46,8 @@ class CarritosDaoArchivo extends ContenedorArchivo {
                 productos.push(item)
             });
             return productos;
-        } catch (err) {  
-            console.log('Error en el metodo getProduct de CarritosDaoArchivo', err.message)
+        } catch (err) {
+            logger.error('Error en el metodo getProduct de CarritosDaoArchivo', err.message);
         }
     }
     /*Metodo para eliminar los productos del carrito*/
@@ -60,10 +61,10 @@ class CarritosDaoArchivo extends ContenedorArchivo {
                 await this.updateById(cartId, cart);
                 return true;
             }
-            console.log(`No se encontro ningun producto con el id:${productId}`);
+            logger.warn(`No se encontro ningun producto con el id:${productId}`);
             return false;
         } catch (error) {
-            console.log('Error en el metodo delProduct de CarritosDaoArchivo', err.message)
+            logger.error('Error en el metodo delProduct de CarritosDaoArchivo', err.message);
         }
     }
 }

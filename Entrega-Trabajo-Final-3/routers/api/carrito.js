@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { carritosDao } from '../../daos/index.js'
+import logger from '../../log/logger.js';
 
 const carrito = carritosDao;
 
@@ -14,10 +15,10 @@ const STATUS_CODE = {
 
 router.post('/', async (req, res, next) => { 
     try {
-        const cartId = await carrito.newCart();
-        res.status(STATUS_CODE.CREATED).json(cartId);
+      const cartId = await carrito.newCart();
+       res.status(STATUS_CODE.CREATED).json(cartId);
   } catch (err) {
-        next(err)
+      logger.error(`Ruta ${req.originalUrl} - Metodo: ${req.method}`);
   }
 });
 
@@ -30,7 +31,7 @@ router.delete("/:id", async (req, res, next) => {
       }
       res.status(STATUS_CODE.NOT_FOUND).json(`El carrito con el id:${req.params.id} no se encontro`);
   } catch (err) {
-      next(err);
+      logger.error(`Ruta ${req.originalUrl} - Metodo: ${req.method}`);
   }
 });
 
@@ -43,7 +44,7 @@ router.post('/:id/productos', async (req, res, next) => {
       }
       res.status(STATUS_CODE.NOT_FOUND).json(`No se pudieron agregar los productos al carrito`);
 } catch (err) {
-      next(err)
+      logger.error(`Ruta ${req.originalUrl} - Metodo: ${req.method}`);
 }
 });
 
@@ -52,7 +53,7 @@ router.get('/:id/productos', async (req, res, next) => {
       const products = await carrito.getProduct(req.params.id);
       res.status(STATUS_CODE.CREATED).json(products);
 } catch (err) {
-      next(err)
+      logger.error(`Ruta ${req.originalUrl} - Metodo: ${req.method}`);
 }
 });
 
@@ -65,7 +66,7 @@ router.delete('/:id/productos/:id_prod', async (req, res, next) => {
       }
       res.status(STATUS_CODE.NOT_FOUND).json(`El producto con id:${req.params.id_prod} no se pudo eliminar del carrito con el id:${req.params.id}`);
 } catch (err) {
-      next(err)
+      logger.error(`Ruta ${req.originalUrl} - Metodo: ${req.method}`);
 }
 });
 

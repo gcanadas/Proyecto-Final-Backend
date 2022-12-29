@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 /* GET home page. */
-router.get('/', (req, res, next) => {
+router.get('/', async (req, res, next) => {
     try{
         if (!req.isAuthenticated()) {
             logger.info(`Ruta ${req.originalUrl} - Metodo: ${req.method}`);

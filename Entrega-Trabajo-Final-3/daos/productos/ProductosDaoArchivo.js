@@ -1,5 +1,6 @@
 import ContenedorArchivo from './../../contenedores/contenedorArchivo.js';
 import { v4 as uuidv4 } from 'uuid';
+import logger from '../../log/logger.js';
 
 class ProductosDaoArchivo extends ContenedorArchivo {
     constructor() {
@@ -11,7 +12,7 @@ class ProductosDaoArchivo extends ContenedorArchivo {
             product = {id: uuidv4(), timestamp: Date().toLocaleString(), ...product};
             await this.save(product);
         } catch (error) {
-            console.log('Error en el metodo newProduct de ProductosDaoArchivo', error.message);
+            logger.error('Error en el metodo newProduct de ProductosDaoArchivo', error.message);
         }
     }
 }

@@ -1,5 +1,6 @@
 import ContenedorMemoria from '../../contenedores/contenedorMemoria.js';
 import { v4 as uuidv4 } from 'uuid';
+import logger from '../../log/logger.js';
 
 class ProductosDaoMemoria extends ContenedorMemoria {
     constructor() {
@@ -11,7 +12,7 @@ class ProductosDaoMemoria extends ContenedorMemoria {
             product = {id: uuidv4(), timestamp: Date().toLocaleString(), ...product};
             await this.save(product);
         } catch (error) {
-            console.log('Error en el metodo newProduct de ProductosDaoMemoria', error.message);
+            logger.error('Error en el metodo newProduct de ProductosDaoMemoria', error.message);
         }
     }
 }

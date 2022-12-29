@@ -1,7 +1,8 @@
 import ContenedorMemoria from '../../contenedores/contenedorMemoria.js';
 import ProductosDaoMemoria from '../productos/ProductosDaoMemoria.js';
-const productosRef = new ProductosDaoMemoria();
 import { v4 as uuidv4 } from 'uuid';
+import logger from '../../log/logger.js';
+const productosRef = new ProductosDaoMemoria();
 
 class CarritosDaoMemoria extends ContenedorMemoria {
     constructor() {
@@ -17,7 +18,7 @@ class CarritosDaoMemoria extends ContenedorMemoria {
             this.save(cart);
             return cart['id'];
         } catch (err) {
-            console.log('Error en el metodo newCart de CarritosDaoMemoria', err.message);
+            logger.error('Error en el metodo newCart de CarritosDaoMemoria', err.message);
         }
     }
     /*Metodo para agregar producto en el carrito*/
@@ -32,7 +33,7 @@ class CarritosDaoMemoria extends ContenedorMemoria {
             await this.updateById(cartId, cart);
             return true               
         } catch (err) {
-            console.log('Error en el metodo newProduct de CarritosDaoMemoria', err.message)
+            logger.error('Error en el metodo newProduct de CarritosDaoMemoria', err.message);
         }
     }
     /*Metodo para obtener los productos del carrito*/
@@ -44,8 +45,8 @@ class CarritosDaoMemoria extends ContenedorMemoria {
                 productos.push(item)
             });
             return productos;
-        } catch (err) {  
-            console.log('Error en el metodo getProduct de CarritosDaoMemoria', err.message)
+        } catch (err) {
+            logger.error('Error en el metodo getProduct de CarritosDaoMemoria', err.message);
         }
     }
     /*Metodo para eliminar los productos del carrito*/
@@ -59,10 +60,10 @@ class CarritosDaoMemoria extends ContenedorMemoria {
                 await this.updateById(cartId, cart);
                 return true;
             }
-            console.log(`No se encontro ningun producto con el id:${productId}`);
+            logger.warn(`No se encontro ningun producto con el id:${productId}`);
             return false;
         } catch (error) {
-            console.log('Error en el metodo delProduct de CarritosDaoMemoria', err.message)
+            logger.error('Error en el metodo delProduct de CarritosDaoMemoria', err.message);
         }
     }
 }
