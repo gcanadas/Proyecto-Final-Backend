@@ -1,0 +1,10 @@
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# dotenv environment variables file
+.env
+
+# datos de acceso de firebase
+
+coderhouse-backend-de6f4-firebase-adminsdk-fwmpr-1808ad4579.json

@@ -1,0 +1,35 @@
+{
+  "name": "entrega-trabajo-final-3",
+  "version": "1.0.0",
+  "description": "Tercera Entrega Proyecto Final",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon --exec node -r dotenv/config ./index.js"
+  },
+  "keywords": [],
+  "author": "Gabriel Eduardo Cañadas Fragapane",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "connect-mongo": "^4.6.0",
+    "express": "^4.18.2",
+    "express-handlebars": "^6.0.6",
+    "express-session": "^1.17.3",
+    "firebase-admin": "^11.2.0",
+    "minimist": "^1.2.7",
+    "mongoose": "^6.7.1",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.8.0",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "twilio": "^3.84.0",
+    "uuid": "^9.0.0",
+    "winston": "^3.8.2"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.3",
+    "nodemon": "^2.0.20"
+  }
+}

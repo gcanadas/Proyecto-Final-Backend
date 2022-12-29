@@ -1,0 +1,64 @@
+<section id="sectionWelcome">
+    <div class="title">
+        <h1>Bienvenido {{ userName }}</h1>
+        <form action="/logout" method="POST">
+          <input type="hidden" name="userName" value="{{ userName }}">
+          <button>Logout</button>
+        </form>
+        {{!-- <a href="/logout">Desloguear</a> --}}
+    </div>
+</section>
+
+<section id="sectionForm">
+    <h2>{{ title }}</h2>
+    <h4 style="color: blue;">Ingrese Producto</h4>
+    <form id="productForm" novalidate>
+        <label for="productName"><i><strong>Nombre</strong></i></label></br>
+        <input type="text" name="name" id="productName" placeholder="Por ej: Calculadora" required></br>
+        <label for="productPrice"><i><strong>Precio</strong></i></label></br>
+        <input type="text" name="price" id="productPrice" placeholder="Por ej: 123.45" required></br>
+        <label for="productURL"><i><strong>Foto URL</strong></i></label></br>
+        <input type="text" name="URL" id="productURL" placeholder="Por ej: https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-512.png" required></br>
+        <button type="submit">Enviar</button><br>
+    </form>
+</section>
+
+<hr>
+<section id="sectionProducts">
+    <h4 style="color:darkred">Lista de Productos</h4>
+    <div id="nonProducts" style="display:block">
+        <p style="text-align:center; width:30%; margin:auto; padding:15px; background-color:orange; margin-bottom:25vh">No se encontraron productos</p>
+    </div>
+    <div id="showProducts" style="display: none">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Foto</th>
+                </tr>
+            </thead>
+            <tbody id="productsTable">
+            </tbody>
+        </table>
+    </div>
+
+<section id="sectionMessage">
+    <h4 style="color:darkblue" id="titleMessages">Centro de Mensajes</h4>
+    <form id="messageForm">
+        <input type="email" name="messageEmail" id="messageEmail" placeholder="Ingresar Email" required>
+        <input type="text" name="messageNombre" id="messageNombre" placeholder="Ingresar Nombre" required>
+        <input type="text" name="messageApellido" id="messageApellido" placeholder="Ingresar Apellido" required>
+        <input type="number" name="messageEdad" id="messageEdad" placeholder="Ingresar Edad" required>
+        <input type="text" name="messageAlias" id="messageAlias" placeholder="Ingresar Alias" required>
+        <input type="text" name="messageAvatar" id="messageAvatar" placeholder="Ingresar su Avatar" required>
+        <hr>
+        <div>
+            <ul id="showMessage"></ul>
+        </div>
+        <input type="text" name="messageText" id="messageText" placeholder="Ingresá un mensaje..." required>
+        <button type="submit">Enviar!</button>
+    </form>
+</section>
+
+</section>

@@ -1,0 +1,21 @@
+<section id="sectionTest">
+    <h1>Lista de productos de Prueba</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Foto</th>
+            </tr>
+        </thead>
+        <tbody id="productsTable">
+            {{#each products}}
+                <tr>
+                    <td>{{name}}</td>
+                    <td>${{price}}</td>
+                    <td><img src='{{URL}}' alt='{{name}}'/></td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</section> 

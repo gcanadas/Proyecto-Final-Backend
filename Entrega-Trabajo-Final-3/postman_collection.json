@@ -1,0 +1,250 @@
+{
+	"info": {
+		"_postman_id": "3d0682cc-d16b-4ee8-a844-9539475f60f8",
+		"name": "Primera Entrega Proyecto Final",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23484183"
+	},
+	"item": [
+		{
+			"name": "Recibir Productos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/productos/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Recibir Productos por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/productos/a2b04eb6-7dda-4572-8658-713d1199dbe6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos",
+						"a2b04eb6-7dda-4572-8658-713d1199dbe6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cargar Producto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Xbox 360\",\r\n    \"description\": \"La Xbox 360 (conocida también como 360) es la segunda videoconsola de sobremesa producida por Microsoft, y fue desarrollada en colaboración con IBM y ATI. Fue lanzada en Norteamérica, Japón, Europa y Australia entre 2005 y 2006. Su servicio Xbox Live permite a los jugadores competir vía online y descargar contenidos como juegos arcade, demos, tráilers, programas de televisión y películas.\",\r\n    \"codigo\": 44562,\r\n    \"thumbnail\": \"https://upload.wikimedia.org/wikipedia/commons/0/03/Xbox-360-Consoles-Infobox.png\",\r\n    \"price\": 49000,\r\n    \"stock\": 8\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/productos/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar Producto",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Xbox One\",\r\n    \"description\": \"Xbox One es la tercera videoconsola de sobremesa de la marca Xbox, producida por Microsoft. Forma parte de las videoconsolas de octava generación, fue presentada por Microsoft el 21 de mayo de 2013.7​ Es la sucesora de la Xbox 360 y la predecesora de la Xbox Series X y Series S. Actualmente compite con PlayStation 4 de Sony y Nintendo Switch de Nintendo.\",\r\n    \"codigo\": 56241,\r\n    \"thumbnail\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Microsoft-Xbox-One-Console-wKinect.png/1200px-Microsoft-Xbox-One-Console-wKinect.png\",\r\n    \"price\": 90000,\r\n    \"stock\": 9\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/productos/59bf4827-b89e-4aae-ac8f-2c0ac413b709",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos",
+						"59bf4827-b89e-4aae-ac8f-2c0ac413b709"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar Producto",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/productos/81d8d25d-eadf-4990-8bc6-6c043bf0525a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos",
+						"81d8d25d-eadf-4990-8bc6-6c043bf0525a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Nuevo Carrito",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/carrito",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carrito"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar Carrito",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/carrito/5296ee0d-4a14-4e26-8a68-80b24723b488",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carrito",
+						"5296ee0d-4a14-4e26-8a68-80b24723b488"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar producto al carrito",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"a2b04eb6-7dda-4572-8658-713d1199dbe6\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/carrito/89fe272d-d0b2-4ff4-8d38-1c4b7d4bf0a8/productos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carrito",
+						"89fe272d-d0b2-4ff4-8d38-1c4b7d4bf0a8",
+						"productos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener productos por id de carrito",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/carrito/89fe272d-d0b2-4ff4-8d38-1c4b7d4bf0a8/productos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carrito",
+						"89fe272d-d0b2-4ff4-8d38-1c4b7d4bf0a8",
+						"productos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar producto del carrito",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/carrito/89fe272d-d0b2-4ff4-8d38-1c4b7d4bf0a8/productos/a2b04eb6-7dda-4572-8658-713d1199dbe6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carrito",
+						"89fe272d-d0b2-4ff4-8d38-1c4b7d4bf0a8",
+						"productos",
+						"a2b04eb6-7dda-4572-8658-713d1199dbe6"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
