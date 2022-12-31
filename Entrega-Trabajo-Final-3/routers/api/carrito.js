@@ -13,6 +13,15 @@ const STATUS_CODE = {
     NOT_FOUND: 404,
   }
 
+router.get('/', async (req, res, next) => {
+      try {
+            const cartData = await cartController.getByUser(req.user.email);
+            res.json(cartData).render('carrito', cartData);
+      } catch (err) {
+            logger.error(`Ruta ${req.originalUrl} - Metodo: ${req.method}`);
+      }
+});
+
 router.post('/', async (req, res, next) => { 
     try {
       const cartId = await carrito.newCart();

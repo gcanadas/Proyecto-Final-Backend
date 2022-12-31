@@ -2,10 +2,12 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import apiRouters from './routers/api/index.js';
+import viewRouters from './routers/view/index.js';
 import config from './config.js';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import bcrypt from 'bcrypt';
+import cors from 'cors';
 import minimist from 'minimist';
 import cluster from 'cluster';
 import os from 'os';
@@ -16,6 +18,11 @@ import MongoStore from 'connect-mongo';
 import UserModel from './models/usuarios.js'
 import sendMail from './controllers/mail.js'
 import { carritosDao } from './daos/index.js';
+
+const advancedOptions = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+};
 
 const MODE_OPERATION = process.env.MODE_OPERATION || 'fork';
 
@@ -46,11 +53,11 @@ if (MODE_OPERATION === 'cluster' && cluster.isPrimary) {
     UserModel.findOne({ email })
       .then((user) => {
         if (!user) {
-          logger.warn(`User with ${email} not found.`);
+          logger.warn(`El usuario ${email} no fue encontrado`);
           return done(null, false, { message: `El usuario ${email} no fue encontrado` });
         }
         if (!bcrypt.compareSync(password, user.password)) {
-          logger.warn('Invalid Password');
+          logger.warn('Contraseña invalida');
           return done(null, false, { message: 'Contraseña invalida' });
         }
         done(null, user);
@@ -66,7 +73,7 @@ if (MODE_OPERATION === 'cluster' && cluster.isPrimary) {
       UserModel.findOne({ email })
       .then((user) => {
         if (user) {
-          logger.warn(`User ${email} already exists.`);
+          logger.warn(`El usuario ${email} ya se encuentra registrado.`);
           return done(null, false);
         } else {
           const salt = bcrypt.genSaltSync(10);
@@ -92,10 +99,10 @@ if (MODE_OPERATION === 'cluster' && cluster.isPrimary) {
       })
       .then((newUser) => {
         if (newUser) {
-          logger.info(`User ${newUser.email} registration succesful.`);
+          logger.info(`El usuario ${newUser.email} se registro correctamente`);
           done(null, newUser);
         } else {
-          logger.warm(newUser);
+          logger.warm(`Error al registrar el nuevo usuario ${newUser}`);
         }
       })
       .catch((error) => {
@@ -117,9 +124,12 @@ if (MODE_OPERATION === 'cluster' && cluster.isPrimary) {
   })
 
   app.use(session({
+    store: new MongoStore({
+      mongoUrl: config.mongoDB.URI_SESSION,
+      mongoOptions: advancedOptions,
+      ttl: 600,
+    }),
       secret: '3WxCgjK#96L',
-      cookie: { httpOnly: false, secure: false, maxAge: 600000 },
-      rolling: true,
       resave: false,
       saveUninitialized: false,
   }));
@@ -127,11 +137,13 @@ if (MODE_OPERATION === 'cluster' && cluster.isPrimary) {
   app.use(passport.initialize());
   app.use(passport.session());
 
+  app.use(cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(express.static(path.join(__dirname, 'public')));
 
   app.use('/api', apiRouters);
+  app.use('/', viewRouters);
 
   app.use(function (err, req, res, next) {
       console.error(err.stack);

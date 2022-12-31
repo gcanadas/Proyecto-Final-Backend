@@ -66,5 +66,17 @@ class CarritosDaosMongoDb extends ContenedorMongoDb {
             logger.error('Error en el metodo delProduct de CarritosDaoMongoDb', error.message);
         }
     }
+
+    async getByUser(email) {
+        try {
+            const data = await this.schema.find({ email: email });
+            if (data == '') {
+                this.newCart(email);
+            }
+            return data['_id'];
+        } catch (error) {
+            logger.error('Error en el metodo getByUser de CarritosDaoMongoDb', error.message);
+        }
+    }
 }
 export default CarritosDaosMongoDb;

@@ -11,7 +11,7 @@ class UsuariosDaoMongoDb extends ContenedorMongoDb {
         try {
             return await this.collection.find({ email: `${email}` })
         } catch (error) {
-            logger.error('Error en el metodo newProduct de UsuariosDaoMongoDb', error.message);
+            logger.error('Error en el metodo getUser de UsuariosDaoMongoDb', error.message);
         }
     }
 }

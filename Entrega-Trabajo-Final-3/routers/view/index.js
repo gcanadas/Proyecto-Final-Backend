@@ -1,7 +1,10 @@
 import { Router } from 'express';
+import logger from '../../log/logger';
 import passport from 'passport';
 import multer from 'multer';
-import logger from '../../log/logger.js';
+import { carritosDao } from '../../daos/index.js';
+
+const carrito = carritosDao;
 
 const router = Router();
 
@@ -24,26 +27,51 @@ router.get('/', async (req, res, next) => {
             res.render('login');
         } else {
             const { user } = req;
-            const { email, avatar, name, phone } = user;
+            const { email, avatar, address, name, phone } = user;
             req.session.email = email;
             req.session.avatar = avatar;
+            req.session.address = address;
             req.session.name = name;
             req.session.phone = phone;
-            res.render('index', { title: 'Tercera Entrega Proyecto Final', email: email, avatar: avatar });
+            const cartData = await carrito.getByUser(email);
+            const cartId = cartData['_id'];
+            res.render('index', { userName: name, userEmail: email, cartId });
         }
     } catch (error){
         logger.error(`Error: ${error.message}`);
     }
 });
 
-router.post('/login', passport.authenticate('sign-in', {
-        successRedirect: '/',
-        failureRedirect: '/errorLogin',
-    }),
-    (req, res) => {
-        logger.info(`Ruta ${req.originalUrl} - Metodo: ${req.method}`);
-        res.redirect('/');
+router.get('/profile', async (req, res, next) => {
+    try{
+        if (!req.isAuthenticated()) {
+            logger.info(`Ruta ${req.originalUrl} - Metodo: ${req.method}`);
+            res.render('login');
+        } else {
+            const { user } = req;
+            let data = {
+                email: user.email,
+                avatar: user.avatar,
+                address: user.address,
+                name: user.name,
+                age: user.age,
+                phone: user.phone,
+            };
+            res.render('profile', data);
+        }
+    } catch (error){
+        logger.error(`Ruta ${req.originalUrl} - Metodo: ${req.method}`);
     }
+});
+
+router.post('/login', passport.authenticate('sign-in', {
+    successRedirect: '/',
+    failureRedirect: '/errorLogin',
+}),
+(req, res) => {
+    logger.info(`Ruta ${req.originalUrl} - Metodo: ${req.method}`);
+    res.redirect('/');
+}
 );
 
 router.get('/errorLogin', (req, res) => {
@@ -75,7 +103,6 @@ router.post('/register', upload.single('avatar'), (req, res, next) => {
         logger.error(`Ruta ${req.originalUrl} - Metodo: ${req.method}`);
         return next()
     }
-    req.body.avatar = req.file.filename;
     next();
 },
     passport.authenticate('sign-up', {

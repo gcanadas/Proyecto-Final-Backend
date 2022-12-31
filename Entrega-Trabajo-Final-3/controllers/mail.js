@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
 export default async function sendMail(subject, body) {
     const opts ={
         from: 'Backend Node Server',
-        to: process.env.EMAIL_USER,
+        to: process.env.EMAIL_ADMIN,
         subject,
         html: body,
     }

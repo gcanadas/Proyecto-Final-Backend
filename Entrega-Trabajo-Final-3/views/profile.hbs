@@ -13,11 +13,15 @@
         </div>
 </nav>
 
-<section id="sectionProducts">
-    <input type="hidden" id="userName" value="{{ userName }}" />
-    <input type="hidden" id="userEmail" value="{{ userEmail }}" />
-    <input type="hidden" id="userPhone" value="{{ userPhone }}" />
-    <input type="hidden" id="cartId" value="{{ cartId }}" /> 
-    <h4 style="color: blue;">Lista de Productos</h4>
-    <div id="productsCard"></div>
+<section id="sectionProfile">
+    <div>
+        <img src="{{ avatar }}" alt="{{ name }}">
+        <div>
+            <h4>Nombre: {{ name }}</h4>
+            <h5>Email: {{ email }}</h5>
+            <h5>Dirección: {{ address }}</h5>
+            <h5>Edad: {{ age }}</h5>
+            <h5>Teléfono: {{ phone }}</h5>
+        </div>
+    </div>
 </section>
